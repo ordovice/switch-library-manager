@@ -145,49 +145,53 @@ func OrganizeByFolders(baseFolder string,
 		}
 
 		//process updates
-		for update, updateInfo := range v.Updates {
-			if updateInfo.Metadata != nil {
-				templateData[settings.TEMPLATE_TITLE_ID] = updateInfo.Metadata.TitleId
-			}
-			templateData[settings.TEMPLATE_VERSION] = strconv.Itoa(update)
-			templateData[settings.TEMPLATE_TYPE] = "UPD"
-			if updateInfo.Metadata.Ncap != nil {
-				templateData[settings.TEMPLATE_VERSION_TXT] = updateInfo.Metadata.Ncap.DisplayVersion
-			} else {
-				templateData[settings.TEMPLATE_VERSION_TXT] = ""
-			}
+		if !v.MultiContent {
+			for update, updateInfo := range v.Updates {
+				if updateInfo.Metadata != nil {
+					templateData[settings.TEMPLATE_TITLE_ID] = updateInfo.Metadata.TitleId
+				}
+				templateData[settings.TEMPLATE_VERSION] = strconv.Itoa(update)
+				templateData[settings.TEMPLATE_TYPE] = "UPD"
+				if updateInfo.Metadata.Ncap != nil {
+					templateData[settings.TEMPLATE_VERSION_TXT] = updateInfo.Metadata.Ncap.DisplayVersion
+				} else {
+					templateData[settings.TEMPLATE_VERSION_TXT] = ""
+				}
 
-			from = filepath.Join(updateInfo.ExtendedInfo.BaseFolder, updateInfo.ExtendedInfo.FileName)
-			if options.CreateFolderPerGame {
-				to = filepath.Join(destinationPath, getFileName(options, updateInfo.ExtendedInfo.FileName, templateData))
-			} else {
-				to = filepath.Join(updateInfo.ExtendedInfo.BaseFolder, getFileName(options, updateInfo.ExtendedInfo.FileName, templateData))
-			}
-			err := moveFile(from, to)
-			if err != nil {
-				zap.S().Errorf("Failed to move file [%v]\n", err)
-				continue
+				from = filepath.Join(updateInfo.ExtendedInfo.BaseFolder, updateInfo.ExtendedInfo.FileName)
+				if options.CreateFolderPerGame {
+					to = filepath.Join(destinationPath, getFileName(options, updateInfo.ExtendedInfo.FileName, templateData))
+				} else {
+					to = filepath.Join(updateInfo.ExtendedInfo.BaseFolder, getFileName(options, updateInfo.ExtendedInfo.FileName, templateData))
+				}
+				err := moveFile(from, to)
+				if err != nil {
+					zap.S().Errorf("Failed to move file [%v]\n", err)
+					continue
+				}
 			}
 		}
 
 		//process DLC
-		for id, dlc := range v.Dlc {
-			if dlc.Metadata != nil {
-				templateData[settings.TEMPLATE_VERSION] = strconv.Itoa(dlc.Metadata.Version)
-			}
-			templateData[settings.TEMPLATE_TYPE] = "DLC"
-			templateData[settings.TEMPLATE_TITLE_ID] = id
-			templateData[settings.TEMPLATE_DLC_NAME] = getDlcName(titlesDB.TitlesMap[k], dlc)
-			from = filepath.Join(dlc.ExtendedInfo.BaseFolder, dlc.ExtendedInfo.FileName)
-			if options.CreateFolderPerGame {
-				to = filepath.Join(destinationPath, getFileName(options, dlc.ExtendedInfo.FileName, templateData))
-			} else {
-				to = filepath.Join(dlc.ExtendedInfo.BaseFolder, getFileName(options, dlc.ExtendedInfo.FileName, templateData))
-			}
-			err = moveFile(from, to)
-			if err != nil {
-				zap.S().Errorf("Failed to move file [%v]\n", err)
-				continue
+		if !v.MultiContent {
+			for id, dlc := range v.Dlc {
+				if dlc.Metadata != nil {
+					templateData[settings.TEMPLATE_VERSION] = strconv.Itoa(dlc.Metadata.Version)
+				}
+				templateData[settings.TEMPLATE_TYPE] = "DLC"
+				templateData[settings.TEMPLATE_TITLE_ID] = id
+				templateData[settings.TEMPLATE_DLC_NAME] = getDlcName(titlesDB.TitlesMap[k], dlc)
+				from = filepath.Join(dlc.ExtendedInfo.BaseFolder, dlc.ExtendedInfo.FileName)
+				if options.CreateFolderPerGame {
+					to = filepath.Join(destinationPath, getFileName(options, dlc.ExtendedInfo.FileName, templateData))
+				} else {
+					to = filepath.Join(dlc.ExtendedInfo.BaseFolder, getFileName(options, dlc.ExtendedInfo.FileName, templateData))
+				}
+				err = moveFile(from, to)
+				if err != nil {
+					zap.S().Errorf("Failed to move file [%v]\n", err)
+					continue
+				}
 			}
 		}
 	}

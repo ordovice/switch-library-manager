@@ -2,11 +2,12 @@ package process
 
 import (
 	"fmt"
-	"github.com/giwty/switch-library-manager/db"
-	"github.com/giwty/switch-library-manager/switchfs"
-	"go.uber.org/zap"
 	"sort"
 	"strconv"
+
+	"github.com/ordovice/switch-library-manager/db"
+	"github.com/ordovice/switch-library-manager/switchfs"
+	"go.uber.org/zap"
 )
 
 type IncompleteTitle struct {

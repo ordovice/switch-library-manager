@@ -2,3 +2,5 @@
 resources/app/vendor
 output
 astilectron-bundler.exe
+windows.syso
+bind_windows_amd64.go

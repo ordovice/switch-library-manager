@@ -1,17 +1,18 @@
 package process
 
 import (
-	"github.com/giwty/switch-library-manager/db"
-	"github.com/giwty/switch-library-manager/settings"
-	"go.uber.org/zap"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
-	"robpike.io/nihongo"
 	"strconv"
 	"strings"
+
+	"github.com/ordovice/switch-library-manager/db"
+	"github.com/ordovice/switch-library-manager/settings"
+	"go.uber.org/zap"
+	"robpike.io/nihongo"
 )
 
 var (

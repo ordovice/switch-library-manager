@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/giwty/switch-library-manager/settings"
-	"go.uber.org/zap"
 	"net/url"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/ordovice/switch-library-manager/settings"
+	"go.uber.org/zap"
 )
 
 func main() {
@@ -40,7 +41,7 @@ func main() {
 	sugar.Infof("[Executable: %v]", exePath)
 	sugar.Infof("[Working directory: %v]", workingFolder)
 
-	appSettings.GUI = true
+	//appSettings.GUI = true
 
 	files, err := AssetDir(workingFolder)
 	if files == nil && err == nil {

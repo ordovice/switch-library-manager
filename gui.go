@@ -4,19 +4,20 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/asticode/go-astikit"
-	"github.com/asticode/go-astilectron"
-	bootstrap "github.com/asticode/go-astilectron-bootstrap"
-	"github.com/giwty/switch-library-manager/db"
-	"github.com/giwty/switch-library-manager/process"
-	"github.com/giwty/switch-library-manager/settings"
-	"go.uber.org/zap"
 	"log"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/asticode/go-astikit"
+	"github.com/asticode/go-astilectron"
+	bootstrap "github.com/asticode/go-astilectron-bootstrap"
+	"github.com/ordovice/switch-library-manager/db"
+	"github.com/ordovice/switch-library-manager/process"
+	"github.com/ordovice/switch-library-manager/settings"
+	"go.uber.org/zap"
 )
 
 type Pair struct {
@@ -119,6 +120,7 @@ func (g *GUI) Start() {
 				Center:          astikit.BoolPtr(true),
 				Height:          astikit.IntPtr(600),
 				Width:           astikit.IntPtr(1200),
+				WebPreferences:  &astilectron.WebPreferences{EnableRemoteModule: astikit.BoolPtr(true)},
 			},
 		}},
 		MenuOptions: []*astilectron.MenuItemOptions{

@@ -2,8 +2,9 @@ package fileio
 
 import (
 	"errors"
-	"github.com/giwty/switch-library-manager/switchfs"
 	"os"
+
+	"github.com/ordovice/switch-library-manager/switchfs"
 )
 
 func ReadSplitFileMetadata(filePath string) (map[string]*switchfs.ContentMetaAttributes, error) {

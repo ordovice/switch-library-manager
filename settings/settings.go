@@ -3,12 +3,13 @@ package settings
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mcuadros/go-version"
-	"go.uber.org/zap"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/mcuadros/go-version"
+	"go.uber.org/zap"
 )
 
 var (
@@ -24,7 +25,7 @@ const (
 	//TITLES_JSON_URL    = "https://raw.githubusercontent.com/blawar/titledb/master/titles.US.en.json"
 	VERSIONS_JSON_URL = "https://tinfoil.media/repo/db/versions.json"
 	//VERSIONS_JSON_URL = "https://raw.githubusercontent.com/blawar/titledb/master/versions.json"
-	SLM_VERSION_URL = "https://raw.githubusercontent.com/giwty/switch-library-manager/master/slm.json"
+	SLM_VERSION_URL = "https://raw.githubusercontent.com/ordovice/switch-library-manager/master/slm.json"
 )
 
 const (

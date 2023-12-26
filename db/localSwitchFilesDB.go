@@ -3,15 +3,16 @@ package db
 import (
 	"errors"
 	"fmt"
-	"github.com/giwty/switch-library-manager/fileio"
-	"github.com/giwty/switch-library-manager/settings"
-	"github.com/giwty/switch-library-manager/switchfs"
-	"go.uber.org/zap"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/ordovice/switch-library-manager/fileio"
+	"github.com/ordovice/switch-library-manager/settings"
+	"github.com/ordovice/switch-library-manager/switchfs"
+	"go.uber.org/zap"
 )
 
 var (

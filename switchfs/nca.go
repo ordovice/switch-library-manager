@@ -109,10 +109,10 @@ func decryptAesCtr(ncaHeader *ncaHeader, fsHeader *fsHeader, offset uint32, size
 
 	keys, _ := settings.SwitchKeys()
 
-	keyName := fmt.Sprintf("key_area_key_application_%x", keyRevision)
+	keyName := fmt.Sprintf("key_area_key_application_%02x", keyRevision)
 	KeyString := keys.GetKey(keyName)
 	if KeyString == "" {
-		return nil, errors.New(fmt.Sprintf("missing Key_area_key[%v]", keyName))
+		return nil, errors.New(fmt.Sprintf("missing Key_area_key[%02x]", keyName))
 	}
 	key, _ := hex.DecodeString(KeyString)
 
